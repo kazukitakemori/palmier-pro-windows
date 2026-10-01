@@ -55,3 +55,7 @@ Never commit:
 - customer/personal data
 - private video footage
 - proprietary Adobe binaries/assets/code
+
+## Build validation
+
+GitHub Actions is enabled on this fork. The dedicated Windows smoke workflow is the first release gate for this branch.
