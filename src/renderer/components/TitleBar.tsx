@@ -60,7 +60,7 @@ export function TitleBar({
   const { name, hasUnsavedChanges, isLoaded } = useProjectStore();
 
   return (
-    <header className="drag-region relative flex h-11 shrink-0 items-center border-b border-white/10 bg-surface-1 px-3">
+    <header className="drag-region relative flex h-9 shrink-0 items-center border-b border-white/10 bg-surface-1 px-2.5">
       <div className="no-drag flex w-52 items-center gap-1">
         {onToggleAgent && (
           <button
@@ -117,9 +117,7 @@ export function TitleBar({
             <PanelRight size={15} strokeWidth={1.7} />
           </button>
         )}
-        <LayoutSwitcher />
-        <ThemeSwitcher />
-        <PanelArrangementMenu />
+
         {onToggleExport && (
           <button
             onClick={onToggleExport}
@@ -132,12 +130,6 @@ export function TitleBar({
             Export
           </button>
         )}
-        <div
-          className="ml-1 flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-surface-3 text-[9px] font-semibold text-text-secondary"
-          title="Account"
-        >
-          P
-        </div>
       </div>
     </header>
   );
