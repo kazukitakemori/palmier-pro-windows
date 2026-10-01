@@ -142,7 +142,7 @@ export function Preview() {
 
   return (
     <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-surface-1">
-      <div className="panel-header flex items-center px-2">
+      <div className="panel-header flex items-center px-1.5">
         <div className="flex h-full items-center border-b border-white/80 px-2 text-[10px] font-medium text-text-primary">
           Timeline
         </div>
@@ -158,7 +158,7 @@ export function Preview() {
         }
       />
 
-      <div className="flex h-5 shrink-0 items-center border-t border-white/10 px-3">
+      <div className="flex h-[18px] shrink-0 items-center border-t border-white/10 px-2">
         <input
           type="range"
           min={0}
@@ -175,7 +175,7 @@ export function Preview() {
           Agent panel open a 1600px window leaves it about 480px wide, so viewport
           breakpoints kept the wide layout and clipped the right-hand controls
           while pushing the transport off centre. */}
-      <div className="@container flex h-9 shrink-0 items-center justify-between px-3">
+      <div className="@container flex h-8 shrink-0 items-center justify-between border-t border-white/[0.06] px-2">
         {/* Both side columns share a width so the transport stays centered; it
             has to hold the guides control without pushing the transport off.
             Below ~384px the matched width is what does not fit any more, so the
