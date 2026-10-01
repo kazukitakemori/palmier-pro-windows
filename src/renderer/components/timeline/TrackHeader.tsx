@@ -12,6 +12,7 @@ import {
   Volume2,
   VolumeX,
   Headphones,
+  GripVertical,
 } from 'lucide-react';
 import type { Track } from '../../../shared/types/project';
 import { useTimelineStore } from '../../store/timeline';
@@ -64,16 +65,19 @@ export function TrackHeader({ track }: TrackHeaderProps) {
 
   return (
     <div
-      className={`relative flex h-12 items-center gap-0.5 border-b border-white/10 px-1.5 ${soloDim ? 'opacity-30' : ''}`}
+      className={`relative flex h-12 items-center gap-0.5 border-b border-white/[0.08] bg-surface-1 px-1 ${soloDim ? 'opacity-30' : ''}`}
       onContextMenu={(event) => {
         event.preventDefault();
         setMenuOpen(true);
       }}
     >
       <span
-        className="absolute inset-y-1 left-0 w-0.5 rounded-r"
+        className="absolute inset-y-0 left-0 w-[2px]"
         style={{ backgroundColor: tint }}
       />
+      <span className="flex size-4 shrink-0 items-center justify-center text-text-muted/60" title="Drag track">
+        <GripVertical size={11} />
+      </span>
       {renaming ? (
         <input
           ref={renameRef}
