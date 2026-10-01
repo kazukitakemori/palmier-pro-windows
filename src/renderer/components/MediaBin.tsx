@@ -269,7 +269,7 @@ export function MediaBin() {
         {panelTabs.map(({ id, label, Icon }) => (
           <button
             key={id}
-            className="icon-button relative"
+            className="relative flex h-8 items-center gap-1.5 px-2 text-[10px] text-text-muted hover:text-text-primary"
             data-active={activeTab === id}
             onClick={() => setActiveTab(id)}
             title={label}
