@@ -135,8 +135,15 @@ export function Inspector() {
 
   const [silenceStatus, setSilenceStatus] = useState<string | null>(null);
   const [working, setWorking] = useState(false);
+  const [inspectorTab, setInspectorTab] = useState<'video' | 'adjust' | 'audio'>('video');
 
   const clip = getSelectedClip();
+
+  useEffect(() => {
+    if (!clip) return;
+    if (clip.type === 'audio') setInspectorTab('audio');
+    else if (inspectorTab === 'audio' && clip.type === 'image') setInspectorTab('video');
+  }, [clip?.id, clip?.type]);
 
   const handleBlendChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -201,7 +208,7 @@ export function Inspector() {
     return (
       <div className="flex flex-1 flex-col overflow-y-auto">
         <div className="panel-header flex items-center px-3 text-[11px] font-medium text-text-secondary">
-          Inspector
+          Project Settings
         </div>
         <InspectorSection title="Project">
           <InspectorValue label="Name" value={projectName} />
@@ -223,24 +230,55 @@ export function Inspector() {
       {/* Header */}
       <div className="panel-header flex items-center justify-between px-3">
         <h2 className="text-[11px] font-medium text-text-secondary">
-          Inspector
+          {clip.label || 'Clip'}
         </h2>
         <span className="text-[10px] text-text-muted capitalize">{clip.type}</span>
       </div>
+      <div className="flex h-8 shrink-0 items-center border-b border-white/10 bg-surface-1 px-1">
+        {clip.type !== 'audio' && (
+          <>
+            <button
+              type="button"
+              onClick={() => setInspectorTab('video')}
+              className={`relative flex h-8 items-center px-2 text-[10px] ${inspectorTab === 'video' ? 'text-text-primary' : 'text-text-muted'}`}
+            >
+              Video
+              {inspectorTab === 'video' && <span className="absolute inset-x-1 bottom-0 h-px bg-white/80" />}
+            </button>
+            {supportsMediaAdjustmentControls(clip.type) && (
+              <button
+                type="button"
+                onClick={() => setInspectorTab('adjust')}
+                className={`relative flex h-8 items-center px-2 text-[10px] ${inspectorTab === 'adjust' ? 'text-text-primary' : 'text-text-muted'}`}
+              >
+                Adjust
+                {inspectorTab === 'adjust' && <span className="absolute inset-x-1 bottom-0 h-px bg-white/80" />}
+              </button>
+            )}
+          </>
+        )}
+        {clip.type !== 'image' && clip.type !== 'title' && clip.type !== 'shape' && (
+          <button
+            type="button"
+            onClick={() => setInspectorTab('audio')}
+            className={`relative flex h-8 items-center px-2 text-[10px] ${inspectorTab === 'audio' ? 'text-text-primary' : 'text-text-muted'}`}
+          >
+            Audio
+            {inspectorTab === 'audio' && <span className="absolute inset-x-1 bottom-0 h-px bg-white/80" />}
+          </button>
+        )}
+      </div>
 
       <div className="space-y-3 px-3 py-3">
-        {/* Clip label */}
-        <div className="truncate text-xs text-text-primary" title={clip.label || clip.id}>
-          {clip.label || clip.id}
-        </div>
+        {inspectorTab === 'video' && (
+          <>
+            <ColorLabelPicker clipId={clip.id} currentColor={clip.color} />
+            <GenerationInfo clipId={clip.id} />
+            <AssetDescription clipId={clip.id} />
+          </>
+        )}
 
-        <ColorLabelPicker clipId={clip.id} currentColor={clip.color} />
-
-        <GenerationInfo clipId={clip.id} />
-
-        <AssetDescription clipId={clip.id} />
-
-        {!isAudio && (
+        {!isAudio && inspectorTab === 'video' && (
           <>
             {/* Blend mode */}
             <div className="flex flex-col gap-1">
@@ -364,7 +402,7 @@ export function Inspector() {
              {/* Media stages below (grade, effects, chroma, edges) operate on
                  decoded frames. Title, shape, and compound clips use separate
                  render paths and bypass them; generated clips stay eligible. */}
-            {supportsMediaAdjustmentControls(clip.type) && (
+            {supportsMediaAdjustmentControls(clip.type) && inspectorTab === 'adjust' && (
               <>
             <div className="flex items-center gap-2">
               <label className="flex items-center gap-1.5 cursor-pointer">
@@ -455,7 +493,7 @@ export function Inspector() {
           </>
         )}
 
-        {isAudio && (
+        {isAudio && inspectorTab === 'audio' && (
           <>
             <p className="text-2xs text-text-muted">
               Audio clip — compositing properties don't apply.
@@ -467,12 +505,12 @@ export function Inspector() {
           </>
         )}
 
-        {(clip.type === 'video' || clip.type === 'image' || clip.type === 'shape') && (
+        {inspectorTab === 'video' && (clip.type === 'video' || clip.type === 'image' || clip.type === 'shape') && (
           <MotionControls clipId={clip.id} />
         )}
 
         {/* Audio tools — available for audio and video clips (both can carry sound). */}
-        {clip.type !== 'image' && clip.type !== 'title' && clip.type !== 'shape' && (
+        {inspectorTab === 'audio' && clip.type !== 'image' && clip.type !== 'title' && clip.type !== 'shape' && (
           <SilenceRemovalControls
             onRemove={handleRemoveSilence}
             working={working}
