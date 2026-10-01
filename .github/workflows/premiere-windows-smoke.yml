@@ -1,0 +1,68 @@
+name: Premiere Clone Lab Windows Smoke
+
+on:
+  push:
+    branches:
+      - premiere-clone-lab
+  workflow_dispatch:
+
+concurrency:
+  group: premiere-clone-lab-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-smoke:
+    name: Build Windows app
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Rust check
+        working-directory: native
+        run: cargo check
+
+      - name: Rust tests
+        working-directory: native
+        run: cargo test
+
+      - name: Build native compositor
+        run: npm run build:rust
+
+      - name: Verify native addon
+        run: npm run native:check
+
+      - name: Build Windows installer and portable app
+        run: npm run dist:win -- --publish never
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: premiere-clone-lab-windows
+          path: |
+            out/*.exe
+            out/*.yml
+          if-no-files-found: error

@@ -264,19 +264,20 @@ export function MediaBin() {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 bg-surface-1">
-      <nav className="flex w-11 shrink-0 flex-col items-center gap-1 border-r border-white/10 bg-surface-2 py-1.5">
+    <div className="flex min-h-0 flex-1 flex-col bg-surface-1">
+      <nav className="flex h-8 shrink-0 items-center gap-0 border-b border-white/10 bg-surface-2 px-1">
         {panelTabs.map(({ id, label, Icon }) => (
           <button
             key={id}
-            className="icon-button relative"
+            className="relative flex h-8 items-center gap-1.5 px-2 text-[10px] text-text-muted hover:text-text-primary"
             data-active={activeTab === id}
             onClick={() => setActiveTab(id)}
             title={label}
             aria-label={label}
           >
-            {activeTab === id && <span className="absolute left-0 h-4 w-0.5 rounded-r bg-white/60" />}
-            <Icon size={15} strokeWidth={1.7} />
+            {activeTab === id && <span className="absolute inset-x-1 bottom-0 h-px bg-white/80" />}
+            <Icon size={13} strokeWidth={1.7} />
+            <span>{label}</span>
           </button>
         ))}
       </nav>

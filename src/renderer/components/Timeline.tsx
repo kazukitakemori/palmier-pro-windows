@@ -184,9 +184,9 @@ export function Timeline({ fill = false, height }: { fill?: boolean; height?: nu
       }`}
       style={fill ? undefined : { height }}
     >
-      <div className="panel-header flex items-center px-2">
+      <div className="panel-header flex items-center px-1.5">
         <div className="flex h-full items-center gap-1 border-b border-white/80 px-2 text-[10px] font-medium text-text-primary">
-          Timeline 1
+          Timeline
         </div>
       </div>
 
@@ -195,7 +195,7 @@ export function Timeline({ fill = false, height }: { fill?: boolean; height?: nu
       {/* Tracks area */}
       <div className="flex flex-1 overflow-hidden" onWheel={handleWheel}>
         {/* Track headers (labels) */}
-        <div className="flex w-[116px] flex-shrink-0 flex-col border-r border-white/10 bg-surface-2">
+        <div className="flex w-[132px] flex-shrink-0 flex-col border-r border-white/10 bg-surface-1">
           {/* Ruler spacer */}
           <div className="h-6 border-b border-white/10" />
           {/* Track headers */}

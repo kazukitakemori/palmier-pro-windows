@@ -14,11 +14,11 @@
  */
 
 @theme {
-  --color-surface-0: #0a0a0a;
-  --color-surface-1: #161616;
-  --color-surface-2: #1e1e1e;
-  --color-surface-3: #2c2c2c;
-  --color-surface-4: #393939;
+  --color-surface-0: #18191c;
+  --color-surface-1: #1e1f23;
+  --color-surface-2: #26272c;
+  --color-surface-3: #303137;
+  --color-surface-4: #3a3b42;
   --color-accent: #f5efe4;
   --color-accent-hover: #ffffff;
   --color-accent-muted: #bdb7ae;
@@ -118,7 +118,7 @@
   ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.18);
     border: 2px solid var(--color-surface-1);
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -132,8 +132,8 @@
   }
 
   .panel-header {
-    height: 28px;
-    min-height: 28px;
+    height: 30px;
+    min-height: 30px;
     background: var(--color-surface-2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   }

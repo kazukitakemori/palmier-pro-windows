@@ -19,7 +19,7 @@ export type Appearance = (typeof APPEARANCES)[number];
 export type ResolvedAppearance = 'light' | 'dark';
 
 /** Follow the OS until the user picks an explicit override. */
-export const DEFAULT_APPEARANCE: Appearance = 'system';
+export const DEFAULT_APPEARANCE: Appearance = 'dark';
 
 export interface AppearanceInfo {
   id: Appearance;
