@@ -343,7 +343,7 @@ function MainWorkspace() {
         onToggleAgent={() => togglePanel('agent')}
         onToggleExport={() => togglePanel('export')}
       />
-      <div className="flex min-h-0 flex-1 gap-[5px] overflow-hidden p-[5px] pt-0">
+      <div className="flex min-h-0 flex-1 gap-px overflow-hidden bg-black p-px pt-0">
         {/* The Agent region is always mounted (hidden when empty) and always the
             anchor of its own group, so regrouping never relocates ChatPanel's
             React parent. An in-progress chat therefore survives any tab change.
@@ -356,7 +356,7 @@ function MainWorkspace() {
           panels={panels}
           detached={detached}
           alwaysMounted
-          className={`${PANEL_FRAME} min-h-0 w-[300px] min-w-[240px] shrink-0`}
+          className={`${PANEL_FRAME} min-h-0 w-[300px] min-w-[240px] shrink-0 border-r border-white/10`}
           onCloseExport={() => togglePanel('export')}
         />
         <WorkspacePresetLayout
@@ -373,7 +373,7 @@ function MainWorkspace() {
           groups={groups}
           panels={panels}
           detached={detached}
-          className={`${PANEL_FRAME} min-h-0 w-[340px] min-w-[260px] shrink-0`}
+          className={`${PANEL_FRAME} min-h-0 w-[340px] min-w-[260px] shrink-0 border-l border-white/10`}
           onCloseExport={() => togglePanel('export')}
         />
       </div>
