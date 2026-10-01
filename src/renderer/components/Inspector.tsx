@@ -278,7 +278,7 @@ export function Inspector() {
           </>
         )}
 
-        {!isAudio && inspectorTab === 'video' && (
+        {!isAudio && inspectorTab !== 'audio' && (
           <>
             {/* Blend mode */}
             <div className="flex flex-col gap-1">
