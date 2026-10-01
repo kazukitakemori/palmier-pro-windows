@@ -105,7 +105,7 @@ export function TimelineToolbar() {
     // The tighter gap below 28rem is the last 400px case: with all four panels
     // open in a 1024px window this row is 400px wide, and at gap-1.5 the
     // shortcuts button sat 1px past the panel edge.
-    <div className="@container flex h-[38px] shrink-0 items-center gap-1.5 border-b border-white/10 bg-surface-1 px-2.5">
+    <div className="@container flex h-8 shrink-0 items-center gap-1 border-b border-white/10 bg-surface-1 px-2">
       {/* Nested-timeline breadcrumb (#155 slice 2): rendered only while a
           nest is open, so the root toolbar is byte-for-byte the old layout.
           Ancestors navigate up; the leaf is the current scope. */}
